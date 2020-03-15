@@ -6,20 +6,29 @@
 // Multiply two literal constants into a typed variable and display the value.
 package main
 
+import (
+	"fmt"
+)
+
 // Add imports.
 
 const (
-// Declare a constant named server of kind string and assign a value.
+	// Declare a constant named server of kind string and assign a value.
+	server string = "192.168.0.1"
 
-// Declare a constant named port of type integer and assign a value.
+	// Declare a constant named port of type integer and assign a value.
+	port int     = 8787
+	pi   float32 = 3.14
+	ia   int     = 5
 )
 
 func main() {
 
 	// Display the value of both server and port.
-
+	fmt.Printf("server = %v \t port = %v\n", server, port)
 	// Divide a constant of kind integer and kind floating point and
 	// assign the result to a variable.
-
+	var1 := (float32(ia)) / pi
 	// Display the value of the variable.
+	fmt.Println(var1)
 }
