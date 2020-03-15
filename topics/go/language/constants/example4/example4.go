@@ -47,7 +47,7 @@ func main() {
 
 	// Subtract 5 nanoseconds from now using a variable of type int64.
 	minusFive := int64(-5)
-	variable := now.Add(minusFive)
+	variable := now.Add(time.Duration(minusFive))
 
 	// example4.go:50: cannot use minusFive (type int64) as type time.Duration in argument to now.Add
 
