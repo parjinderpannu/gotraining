@@ -7,6 +7,18 @@ package main
 
 import "fmt"
 
+type bill struct {
+	flag    bool
+	counter int16
+	pi      float32
+}
+
+type nancy struct {
+	flag    bool
+	counter int16
+	pi      float32
+}
+
 func main() {
 
 	// Declare a variable of an anonymous type set
@@ -31,6 +43,20 @@ func main() {
 		counter: 10,
 		pi:      3.141592,
 	}
+
+	var b bill
+	var b1 bill
+	var n nancy
+	// b = n implicit conversion not allowed
+	b = bill(n) // explicit conversion
+	b1 = e2     // implicit conversion allowed for literals
+	// functions are like literal and we pass functions like http
+	// var b int
+	// var n uint
+	// above is real world senario if implicit conversion allowed
+	// then value will be different
+	fmt.Println(b, n)
+	fmt.Println(b1)
 
 	// Display the values.
 	fmt.Printf("%+v\n", e2)

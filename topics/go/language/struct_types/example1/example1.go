@@ -7,8 +7,10 @@ package main
 import "fmt"
 
 // example represents a type with different fields.
+// looks like 7 bytes values
+// However it is 8 bytes value because of alignment
 type example struct {
-	flag    bool
+	flag    bool // 1 bytes for padding
 	counter int16
 	pi      float32
 }
