@@ -56,4 +56,10 @@ _"Parallelism is TRYING to do two things at the same time. Concurrency is arrang
 [Template](exercises/template1/template1.go) ([Go Playground](https://play.golang.org/p/O0FB2gd6-7d)) | 
 [Answer](exercises/exercise1/exercise1.go) ([Go Playground](https://play.golang.org/p/uZlHjwf2CXY))
 ___
+
+**Part Videos notes**
+Thread state : running, runnable & waiting  
+1 nano seconds = 12 lines of instructions  
+
+
 All material is licensed under the [Apache License Version 2.0, January 2004](http://www.apache.org/licenses/LICENSE-2.0).
