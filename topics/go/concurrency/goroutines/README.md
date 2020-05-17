@@ -60,6 +60,11 @@ ___
 **Part Videos notes**
 Thread state : running, runnable & waiting  
 1 nano seconds = 12 lines of instructions  
+Context Switching = 1000 to 2000 nano seconds. Meaning that 12*Context Switching loss of instruction  
+Minimum time slice (mts) lets 10 mili second. CS causes proformance problems  
+Work load:   
+CPU Bound --> Thread never goes to waiting state. It gets its full MTS. CS is hurting us.  
+I/O Bound --> Thread never uses it's full MTS because It has to move from running to waiting. May be it has to read something from N/W. CS is our friend. Since thread is going to go to waiting stage during that time other thread could execute.  
 
 
 All material is licensed under the [Apache License Version 2.0, January 2004](http://www.apache.org/licenses/LICENSE-2.0).
