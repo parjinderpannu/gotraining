@@ -65,6 +65,27 @@ Minimum time slice (mts) lets 10 mili second. CS causes proformance problems
 Work load:   
 CPU Bound --> Thread never goes to waiting state. It gets its full MTS. CS is hurting us.  
 I/O Bound --> Thread never uses it's full MTS because It has to move from running to waiting. May be it has to read something from N/W. CS is our friend. Since thread is going to go to waiting stage during that time other thread could execute.  
+  
+We use pool of threads and find that magic number. Too high CS is going to hurt us. Too low more ideal time because we don't have thread in runnable state.
+
+Concurrency  
+Parallelism  
+
+Go programs starts up. Runtime is going to find how many H/W threads. For example my machine 8 h/w threads. I am getting 8 of those logical processes one per h/w threads. Every logical processor gets real live O/S thread executes on H/W.  
+Go routine is application level thread. GO routines don't have priority.  
+Go scheduler has to yield instead of developers.  
+
+GRQ & LRQ : Global Run Queue & Local Run Queue  
+GC: Garbage collections  
+System call: Asyn & Sync  
+GO Context Switching : 200 nano seconds  
+Blocking Calls : Mutex, C-GO,  
+Network Pooler: Starts with single thread. Jobs is to handle async system calls. N/W calls.  
+example of N/W Pooler: GO Routine is going to do n/w read. This go routine is assigned to N/W Pooler. What if read operation is file I/O then GO R & M1 is detached from GO R scheduler.  
+GO R making C read call  
+Running GO R in parallel. Working stealing  
+
+
 
 
 All material is licensed under the [Apache License Version 2.0, January 2004](http://www.apache.org/licenses/LICENSE-2.0).

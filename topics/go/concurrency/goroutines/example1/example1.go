@@ -39,6 +39,7 @@ func main() {
 
 	// Wait for the goroutines to finish.
 	fmt.Println("Waiting To Finish")
+	// runtime.Gosched() don't use in prod code. Can use in test
 	wg.Wait()
 
 	fmt.Println("\nTerminating Program")
