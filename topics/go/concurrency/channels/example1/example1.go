@@ -20,11 +20,11 @@ func init() {
 
 func main() {
 
-	waitForResult()
-	// fanOut()
+	// waitForResult()
+	// fanOut() //Dangerours don't use in web services
 
-	// waitForTask()
-	// pooling()
+	// waitForTask() //Guarentees with single channel
+	pooling()
 
 	// Advanced patterns
 	// fanOutSem()
@@ -47,7 +47,7 @@ func waitForResult() {
 		fmt.Println("employee : sent signal")
 	}()
 
-	p := <-ch
+	p := <-ch // Receive happens before send
 	fmt.Println("manager : recv'd signal :", p)
 
 	time.Sleep(time.Second)
@@ -68,7 +68,7 @@ func fanOut() {
 	for e := 0; e < emps; e++ {
 		go func(emp int) {
 			time.Sleep(time.Duration(rand.Intn(200)) * time.Millisecond)
-			ch <- "paper"
+			ch <- "paper" // send happens before receive
 			fmt.Println("employee : sent signal :", emp)
 		}(e)
 	}
@@ -93,7 +93,7 @@ func waitForTask() {
 	ch := make(chan string)
 
 	go func() {
-		p := <-ch
+		p := <-ch // receive is blocked. Nano seconds before
 		fmt.Println("employee : recv'd signal :", p)
 	}()
 

@@ -2,6 +2,7 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 
 // go build -race
+// go test -race -cpu 24
 
 // Sample program to show how to create race conditions in
 // our programs. We don't want to do this.
@@ -34,6 +35,8 @@ func main() {
 
 				// Increment our local value of Counter.
 				value++
+
+				// fmt.Println("logging")
 
 				// Store the value back into Counter.
 				counter = value
