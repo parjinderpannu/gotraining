@@ -54,15 +54,17 @@ func main() {
 
 // random generates random numbers and stores them into a slice.
 func random(amount int) {
-	rwMutex.Lock()
-	{
-		// Generate as many random numbers as specified.
-		for i := 0; i < amount; i++ {
-			n := rand.Intn(100)
+
+	// Generate as many random numbers as specified.
+	for i := 0; i < amount; i++ {
+		n := rand.Intn(100)
+		rwMutex.Lock()
+		{
 			numbers = append(numbers, n)
 		}
+		rwMutex.Unlock()
 	}
-	rwMutex.Unlock()
+
 }
 
 // ==================
