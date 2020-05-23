@@ -24,13 +24,13 @@ func main() {
 	// fanOut() //Dangerours don't use in web services
 
 	// waitForTask() //Guarentees with single channel
-	pooling()
+	// pooling()
 
 	// Advanced patterns
 	// fanOutSem()
-	// boundedWorkPooling()
+	// boundedWorkPooling() // favorite of kennedy
 	// drop()
-	// cancellation()
+	cancellation()
 }
 
 // waitForResult: You are a manager and you hire a new employee. Your new
@@ -117,7 +117,7 @@ func pooling() {
 	g := runtime.NumCPU()
 	for e := 0; e < g; e++ {
 		go func(emp int) {
-			for p := range ch {
+			for p := range ch { //receive happens before send
 				fmt.Printf("employee %d : recv'd signal : %s\n", emp, p)
 			}
 			fmt.Printf("employee %d : recv'd shutdown signal\n", emp)
@@ -126,7 +126,7 @@ func pooling() {
 
 	const work = 100
 	for w := 0; w < work; w++ {
-		ch <- "paper"
+		ch <- "paper" //could do cancellation on timeout
 		fmt.Println("manager : sent signal :", w)
 	}
 
@@ -154,7 +154,7 @@ func fanOutSem() {
 
 	for e := 0; e < emps; e++ {
 		go func(emp int) {
-			sem <- true
+			sem <- true //Only g number of below code run concurrently
 			{
 				time.Sleep(time.Duration(rand.Intn(200)) * time.Millisecond)
 				ch <- "paper"
@@ -254,11 +254,11 @@ func drop() {
 // They have a specified amount of time and if they are not done, you don't
 // wait and walk away.
 func cancellation() {
-	duration := 150 * time.Millisecond
+	duration := 100 * time.Millisecond
 	ctx, cancel := context.WithTimeout(context.Background(), duration)
 	defer cancel()
 
-	ch := make(chan string, 1)
+	ch := make(chan string, 1) //without bufferred channel of 1 goroutine leaks
 
 	go func() {
 		time.Sleep(time.Duration(rand.Intn(200)) * time.Millisecond)
