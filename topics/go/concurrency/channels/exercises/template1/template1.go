@@ -50,6 +50,7 @@ func goroutine(name string, share chan int) {
 		value, ok := <-share
 		if !ok {
 			fmt.Printf("Goroutine %s Down\n", name)
+			// fmt.Printf("Inside ok %s\n", name)
 			return
 		}
 
@@ -60,6 +61,7 @@ func goroutine(name string, share chan int) {
 		if value == 10 {
 			close(share)
 			fmt.Printf("Goroutine %s Down\n", name)
+			// fmt.Printf("Inside value %s\n", name)
 			return
 		}
 
