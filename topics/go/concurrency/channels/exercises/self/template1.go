@@ -21,20 +21,21 @@ func main() {
 
 	// Create the WaitGroup and add a count
 	// of two, one for each goroutine.
-	var wg sync.WaitGroup
+	var wg sync.WaitGroup //mistake var not literal
 	wg.Add(2)
 
 	// Launch the goroutine and handle Done.
 	go func() {
-		goroutine("Bill", share)
+		goroutine("bill", share)
 		wg.Done()
 	}()
 
 	// Launch the goroutine and handle Done.
 	go func() {
-		goroutine("Joan", share)
+		goroutine("joan", share)
 		wg.Done()
 	}()
+
 	// Send a value to start the counting.
 	share <- 1
 	// Wait for the program to finish.
@@ -49,25 +50,21 @@ func goroutine(name string, share chan int) {
 		// If the channel was closed, return.
 		value, ok := <-share
 		if !ok {
-			fmt.Printf("OK Goroutine %s Down\n", name)
-			// fmt.Printf("Inside ok %s\n", name)
-			return
+			fmt.Printf("terminate[ok] for %s\n", name)
+			return // mistake
 		}
-
 		// Display the value.
-		fmt.Printf("Goroutine %s Inc %d\n", name, value)
+		fmt.Printf("%s value %d\n", name, value)
 
 		// Terminate when the value is 10.
 		if value == 10 {
+			fmt.Printf("terminate[value] for %s\n", name)
 			close(share)
-			fmt.Printf("Value Goroutine %s Down\n", name)
-			// fmt.Printf("Inside value %s\n", name)
-			// fmt.Println("Close")
-			return
+			return // mistake
 		}
-
 		// Increment the value and send it
 		// over the channel.
 		share <- (value + 1)
+
 	}
 }
