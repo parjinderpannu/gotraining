@@ -25,7 +25,6 @@ func main() {
 
 	// Create the channel for sharing results.
 	values := make(chan int)
-
 	// Create a sync.WaitGroup to monitor the Goroutine pool. Add the count.
 	var wg sync.WaitGroup
 	wg.Add(goroutines)
@@ -36,7 +35,7 @@ func main() {
 		go func() {
 
 			// Ensure the waitgroup is decremented when this function returns.
-			defer wg.Done()
+			defer wg.Done() //mistake forgot defer
 			// Generate a random number up to 1000.
 			n := rand.Intn(1000)
 			// Return early if the number is even. (n%2 == 0)
@@ -45,6 +44,7 @@ func main() {
 			}
 			// Send the odd values through the channel.
 			values <- n
+
 		}()
 	}
 
@@ -61,6 +61,7 @@ func main() {
 	for n := range values {
 		nums = append(nums, n)
 	}
+
 	// Print the values in our slice.
 	fmt.Printf("Result count: %d\n", len(nums))
 	fmt.Println(nums)
