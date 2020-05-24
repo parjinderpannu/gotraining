@@ -18,7 +18,7 @@ import (
 
 // Declare constant for number of goroutines.
 const (
-	goroutines = 100
+	gr int = 100
 )
 
 func init() {
@@ -30,10 +30,10 @@ func main() {
 
 	// Create the buffered channel with room for
 	// each goroutine to be created.
-	values := make(chan int, goroutines)
+	values := make(chan int, gr)
 
 	// Iterate and launch each goroutine.
-	for gr := 0; gr < goroutines; gr++ {
+	for i := 0; i < gr; i++ {
 		// Create an anonymous function for each goroutine that
 		go func() {
 			// generates a random number and sends it on the channel.
@@ -44,10 +44,15 @@ func main() {
 
 	// Create a variable to be used to track received messages.
 	// Set the value to the number of goroutines created.
-	wait := goroutines
+	// var num []int //mistake
+	wait := gr //correction
+
 	// Iterate receiving each value until they are all received.
 	// Store them in a slice of ints.
-	var nums []int
+	var nums []int // correction
+	// for len(num) < gr {
+	// 	num = append(num, <-value)
+	// }
 	for wait > 0 {
 		nums = append(nums, <-values)
 		wait--
